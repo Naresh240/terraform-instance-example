@@ -1,8 +1,11 @@
-resource aws_instance example {
-  ami           = "ami-08b5b3a93ed654d19"
-  instance_type = "t2.micro"
+resource "aws_instance" "example" {
+  count = var.num_instances
+
+  ami           = var.ami_id
+  instance_type = var.inst_type
+  key_name      = var.key_name
 
   tags = {
-    Name = "terraformInstance"
+    Name = "${var.tag_name}${count.index}"
   }
 }
